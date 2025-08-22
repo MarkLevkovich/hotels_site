@@ -7,7 +7,9 @@ from alembic import context
 
 
 from app.database import Base
-from app.hotels.models import Hotel
+from app.hotels.models import Hotel, Room
+from app.bookings.models import Bookings
+from app.users.models import User
 from app.config import DB_URL   
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
