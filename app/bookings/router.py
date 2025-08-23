@@ -4,7 +4,7 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.bookings.models import Bookings
 from app.bookings.dao import BookingsDAO
-
+from app.bookings.schemas import SBookings
 
 
 router = APIRouter(
@@ -13,5 +13,5 @@ router = APIRouter(
 )
 
 @router.get('/')
-async def get_bookings():
-    return await BookingsDAO.find_one_or_none(room_id=45)
+async def get_bookings() -> list[SBookings]:
+    return await BookingsDAO.find_all()
