@@ -13,3 +13,7 @@ async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit
 
 class Base(DeclarativeBase):
     pass
+
+# async def get_db():
+#     async with async_session_maker() as session:
+#         yield session
