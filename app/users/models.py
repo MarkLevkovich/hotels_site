@@ -2,7 +2,7 @@ from sqlalchemy import JSON, Integer, String, Boolean, Column, ForeignKey, Date,
 from app.database import Base
 
 
-class User(Base):
+class Users(Base):
     __tablename__='users'
     # __table_args__ = {'extend_existing': True}
 
