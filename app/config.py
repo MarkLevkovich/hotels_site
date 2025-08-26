@@ -9,13 +9,31 @@ class Settings(BaseSettings):
     DB_NAME: str
     DB_PASSWORD: str
 
+    SECRET_KEY: str
+    ALGORITHM:str
+
     @computed_field
     def get_db_url(self) -> str:
         return f'postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'
 
+    @computed_field()
+    def get_jwt_key(self) -> str:
+        return self.SECRET_KEY
+
+    @computed_field()
+    def get_jwt_algorithm(self) -> str:
+        return self.ALGORITHM
 
     class Config:
         env_file = '.env'
 
 settings = Settings()
+
+#bd
 DB_URL = settings.get_db_url
+
+#jwt
+SECRET_KEY = settings.get_jwt_key
+ALGORITHM = settings.get_jwt_algorithm
+
+
