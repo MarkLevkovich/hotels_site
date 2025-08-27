@@ -31,5 +31,3 @@ async def auth_user(email: EmailStr, password: str):
         return None
     return user
 
-print(SECRET_KEY)
-print(ALGORITHM)
