@@ -27,12 +27,12 @@ class BookingsDAO(BaseDAO):
                     )
                 ).cte('booked_rooms')
 
-                rooms_left = select(
+                get_rooms_left = select(
                     (Room.quantity - func.count(booked_rooms.c.room_id)).label('rooms_left')
                     ).select_from(Room).join(
                         booked_rooms, booked_rooms.c.room_id == Room.id
                     ).where(Room.id==room_id).group_by(
                         Room.quantity, booked_rooms.c.room_id
                     )
-                rooms_left = await session.execute(rooms_left)
-                print(rooms_left.scalar())
+                rooms_left = await session.execute(get_rooms_left)
+                rooms_left: int = rooms_left.scalar()
