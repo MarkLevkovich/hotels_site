@@ -35,3 +35,8 @@ JWTException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
     detail='[!] JWT Error! [!]'
 )
+
+NoRoomException = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail='[!] No free rooms, sorry! [!]'
+)

@@ -29,7 +29,7 @@ class BookingsDAO(BaseDAO):
 
                 get_rooms_left = select(
                     (Room.quantity - func.count(booked_rooms.c.room_id)).label('rooms_left')
-                    ).select_from(Room).join(
+                    ).select_from(Room).outerjoin(
                         booked_rooms, booked_rooms.c.room_id == Room.id
                     ).where(Room.id==room_id).group_by(
                         Room.quantity, booked_rooms.c.room_id
@@ -37,8 +37,8 @@ class BookingsDAO(BaseDAO):
                 rooms_left = await session.execute(get_rooms_left)
                 rooms_left: int = rooms_left.scalar()
 
-                if rooms_left > 0:
-                    get_price = await session.execute(select(Room.price).where(id=room_id))
+                if rooms_left and rooms_left > 0:
+                    get_price = await session.execute(select(Room.price).where(Room.id==room_id))
                     price: int = get_price.scalar()
                     add_booking = insert(Bookings).values(
                         room_id = room_id,
