@@ -1,6 +1,6 @@
 from datetime import date
 from app.database import async_session_maker
-from sqlalchemy import select, and_, or_, func
+from sqlalchemy import select, and_, or_, func, insert
 from app.bookings.models import Bookings
 from app.dao.base import BaseDAO
 from app.hotels.models import Room
@@ -36,3 +36,18 @@ class BookingsDAO(BaseDAO):
                     )
                 rooms_left = await session.execute(get_rooms_left)
                 rooms_left: int = rooms_left.scalar()
+
+                if rooms_left > 0:
+                    get_price = await session.execute(select(Room.price).where(id=room_id))
+                    price: int = get_price.scalar()
+                    add_booking = insert(Bookings).values(
+                        room_id = room_id,
+                        user_id = user_id,
+                        date_from = date_from,
+                        date_to = date_to,
+                        price = price
+                    ).returning(Bookings)
+                    new_booking = await session.execute(add_booking)
+                    return new_booking.scalar()
+                else:
+                    return None
