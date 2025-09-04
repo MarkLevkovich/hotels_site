@@ -40,3 +40,8 @@ NoRoomException = HTTPException(
     status_code=status.HTTP_409_CONFLICT,
     detail='[!] No free rooms, sorry! [!]'
 )
+
+NoBookingException = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail='[!] No booking on this ID [!]'
+)
