@@ -11,4 +11,4 @@ router = APIRouter(prefix='/hotels', tags=['Hotels'])
 
 @router.get('/{loc}')
 async def get_hotels(loc: str, d_from: date, d_to: date):
-    return await HotelsDAO.find_available_hotels(location=loc, date_from=d_from, date_to=d_to)
+    return await HotelsDAO.find_by_place(location=loc, date_from=d_from, date_to=d_to)

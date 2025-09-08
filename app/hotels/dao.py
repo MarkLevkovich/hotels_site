@@ -14,22 +14,12 @@ class HotelsDAO(BaseDAO):
 
 
     @classmethod
-    async def find_available_hotels(
-            cls,
-            location: str,
-            date_from: date,
-            date_to: date,
-            **additional_filters
-    ):
-        """
-        Корректный поиск отелей со свободными комнатами
-        """
-        async with async_session_maker() as session:
-            # Подзапрос для поиска свободных комнат в отеле
-            available_rooms_subquery = (
+    async def find_by_place(cls, location: str, date_from: date, date_to: date):
+        async with async_session_maker() as sm:
+            available_rooms = (
                 select(Room.id)
                 .where(
-                    Room.hotel_id == Hotel.id,
+                    Room.hotel_id==Hotel.id,
                     Room.id.not_in(
                         select(Booking.room_id)
                         .where(
@@ -45,14 +35,19 @@ class HotelsDAO(BaseDAO):
                 .exists()
             )
 
-            conditions = [
+            condition = [
                 Hotel.location.ilike(f"%{location}%"),
-                available_rooms_subquery  # Есть хотя бы одна свободная комната
+                available_rooms
             ]
 
-            for key, value in additional_filters.items():
-                conditions.append(getattr(Hotel, key) == value)
-
-            query = select(Hotel).where(*conditions)
-            result = await session.execute(query)
+            query = select(Hotel).where(*condition)
+            result = await sm.execute(query)
             return result.scalars().all()
+
+
+
+
+
+
+
+
