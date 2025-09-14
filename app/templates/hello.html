@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belarus BNB | Modern Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #8A2BE2, #00BFFF, #FF8C00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.5));
+        }
+
+        .main-card {
+            background: rgba(25, 24, 41, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 70px 50px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+            pointer-events: none;
+        }
+
+        .main-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53, #fee140, #fa709a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            animation: gradientShift 8s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 45px;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 38px;
+            background: linear-gradient(45deg, #8A2BE2, #4A00E0);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(138, 43, 226, 0.6);
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(25, 24, 41, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00BFFF, #00DDFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.15), rgba(74, 0, 224, 0.1));
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 70%;
+            left: 10%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 5%;
+            animation-delay: -10s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 65%;
+            right: 8%;
+            animation-delay: -7s;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(10deg); }
+            66% { transform: translateY(15px) rotate(-5deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .main-card {
+                padding: 40px 25px;
+                border-radius: 24px;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Belarus BNB</div>
+        </div>
+
+        <div class="main-card">
+            <h1>Welcome to Belarus BNB!</h1>
+            <p class="subtitle">Discover unique places to stay and experiences in the heart of Belarus</p>
+            <a href="#" class="cta-button">
+                <span>Explore Listings</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+
+            <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3 class="feature-title">Unique Homes</h3>
+                <p class="feature-desc">Discover one-of-a-kind accommodations across Belarus</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3 class="feature-title">Prime Locations</h3>
+                <p class="feature-desc">Find the perfect spot in cities and countryside alike</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="feature-title">Local Experiences</h3>
+                <p class="feature-desc">Immerse yourself in authentic Belarusian culture</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive background effect
+        document.addEventListener('mousemove', (e) => {
+            const floatingElements = document.querySelectorAll('.floating-element');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            floatingElements.forEach(element => {
+                const speed = parseInt(element.style.width) / 100;
+                const xOffset = (x - 0.5) * speed * 20;
+                const yOffset = (y - 0.5) * speed * 20;
+
+                element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
