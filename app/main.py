@@ -8,6 +8,15 @@ from app.images.router import router as router_images
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
+from starlette.requests import Request
+from starlette.responses import Response
+
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
+
+from redis import asyncio as aioredis
+
 
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='app/static'), 'static')
@@ -33,6 +42,11 @@ app.add_middleware(
 async def main_hello():
     return RedirectResponse(url='/pages/')
 
+
+@app.on_event("startup")
+async def startup():
+    redis = aioredis.from_url("redis://localhost:6379", encoding='utf8', decode_responses=True)
+    FastAPICache.init(RedisBackend(redis), prefix='cache')
 
 app.include_router(router_users)
 app.include_router(router_bookings)
