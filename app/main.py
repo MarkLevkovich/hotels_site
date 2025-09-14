@@ -13,10 +13,6 @@ app = FastAPI()
 app.mount('/static', StaticFiles(directory='app/static'), 'static')
 
 
-@app.get('/')
-def hello() -> str:
-    return 'Hello in my web-site!'
-
 
 app.include_router(router_users)
 app.include_router(router_bookings)
