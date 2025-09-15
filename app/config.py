@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM:str
 
+    SMTP_HOST: str
+    SMTP_PORT: int
+    SMTP_USER: str
+    SMTP_PASS: str
+
     @computed_field
     def get_db_url(self) -> str:
         return f'postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'
