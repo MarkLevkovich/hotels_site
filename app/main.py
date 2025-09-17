@@ -1,5 +1,8 @@
 from fastapi import FastAPI
+from app.admin.view import UserAdmin, BookingsAdmin
 from app.bookings.router import router as router_bookings
+from app.database import engine
+from app.users.models import Users
 from app.users.router import router as router_users
 from app.hotels.router import router as router_hotels
 from app.hotels.rooms.router import router as router_rooms
@@ -10,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from starlette.requests import Request
 from starlette.responses import Response
-
+from sqladmin import Admin, ModelView
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
@@ -48,6 +51,17 @@ async def startup():
     redis = aioredis.from_url("redis://localhost:6379", encoding='utf8', decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix='cache')
 
+
+#adminka
+admin = Admin(app, engine)
+
+admin.add_view(UserAdmin)
+admin.add_view(BookingsAdmin)
+
+
+
+
+#routers
 app.include_router(router_users)
 app.include_router(router_bookings)
 app.include_router(router_hotels)
