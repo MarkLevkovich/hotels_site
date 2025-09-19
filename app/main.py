@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.admin.view import UserAdmin, BookingsAdmin
+from app.admin.view import UserAdmin, BookingsAdmin, RoomsAdmin, HotelAdmin
 from app.bookings.router import router as router_bookings
 from app.database import engine
 from app.users.models import Users
@@ -55,6 +55,9 @@ async def startup():
 #adminka
 admin = Admin(app, engine)
 
+
+admin.add_view(HotelAdmin)
+admin.add_view(RoomsAdmin)
 admin.add_view(UserAdmin)
 admin.add_view(BookingsAdmin)
 
