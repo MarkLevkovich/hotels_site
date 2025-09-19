@@ -9,7 +9,7 @@ from sqladmin import ModelView
 class UserAdmin(ModelView, model=Users):
     column_list = [Users.id, Users.email]
     column_details_exclude_list = [Users.hashed_password]
-    can_delete = False
+    can_delete = True
     name = 'User'
     name_plural = 'Users'
     icon = 'fa-solid fa-user'
